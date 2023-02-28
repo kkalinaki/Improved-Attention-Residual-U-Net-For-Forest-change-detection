@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Jan  1 17:12:31 2023
-
-@author: User
-"""
 
 import os
 import numpy as np
@@ -17,14 +11,14 @@ from keras import backend, optimizers
 
 
 import glob
-path = "D:/Kassim/new/attention14"
+path = "datasets"
 os.chdir(path)
 
 SIZE = 128 
 n_classes = 4
 image_dataset = []
 name_of_images=[]
-for directory_path in glob.glob("D:/Kassim/new/attention14/old_patches/images"):
+for directory_path in glob.glob("datasets/images"):
     for img_path in glob.glob(os.path.join(directory_path, "*.tif")):
         name_of_images.append(img_path[19:-4])
         img = cv2.imread(img_path, 1)       
@@ -36,7 +30,7 @@ image_dataset = np.array(image_dataset)
 
 #Capture mask/label info as a list
 mask_dataset = [] 
-for directory_path in glob.glob("D:/Kassim/new/attention14/old_patches/masks/"):
+for directory_path in glob.glob("datasets/masks/"):
     for mask_path in glob.glob(os.path.join(directory_path, "*.tif")):
         mask = cv2.imread(mask_path, 0)       
         mask = cv2.resize(mask, (SIZE, SIZE), interpolation = cv2.INTER_NEAREST)  #Otherwise ground truth changes due to interpolation
@@ -286,97 +280,6 @@ plt.legend()
 plt.show()
 
 
-######################################################
-# Combined Loss curves
-######################################################
-
-#Combined Training loss curves
-plt.plot(epochs, loss1, label=' U-Net Training loss')
-# plt.plot(epochs, val_loss1, label='U-net Validation loss')
-plt.plot(epochs, loss2, label='Attention U-Net Training loss')
-# plt.plot(epochs, val_loss2, label='Attention U-Net Validation loss')
-plt.plot(epochs, loss3, label='Attention Residual U-Net Training loss')
-# plt.plot(epochs, val_loss3, label='Attention U-Net Residual Validation loss')
-plt.title('Combined Training loss')
-plt.xlabel('Epochs')
-plt.ylabel('Loss')
-plt.legend()
-plt.show()
-
-
-#Combined Validation Loss curves
-# plt.plot(epochs, loss1, label=' U-Net Training loss')
-plt.plot(epochs, val_loss1, label='U-net Validation loss')
-# plt.plot(epochs, loss2, label='Attention U-Net Training loss')
-plt.plot(epochs, val_loss2, label='Attention U-Net Validation loss')
-# plt.plot(epochs, loss3, label='Attention Residual U-Net Training loss')
-plt.plot(epochs, val_loss3, label='Attention U-Net Residual Validation loss')
-plt.title('Combined validation loss')
-plt.xlabel('Epochs')
-plt.ylabel('Loss')
-plt.legend()
-plt.show()
-
-#Combined training and validation loss curves
-plt.plot(epochs, loss1, label=' U-Net Training loss')
-plt.plot(epochs, val_loss1, label='U-net Validation loss')
-plt.plot(epochs, loss2, label='Attention U-Net Training loss')
-plt.plot(epochs, val_loss2, label='Attention U-Net Validation loss')
-plt.plot(epochs, loss3, label='Attention Residual U-Net Training loss')
-plt.plot(epochs, val_loss3, label='Attention U-Net Residual Validation loss')
-plt.title('Combined Training and validation loss')
-plt.xlabel('Epochs')
-plt.ylabel('Loss')
-plt.legend()
-plt.show()
-
-
-
-
-######################################################
-# Combined IoU curves
-######################################################
-
-#Combined Training IoU curves
-plt.plot(epochs, acc1, label='U-Net Training IoU')
-# plt.plot(epochs, val_acc1, label='U-Net Validation IoU')
-plt.plot(epochs, acc2, label='Attention U-Net Training IoU')
-# plt.plot(epochs, val_acc2, label='Attention U-Net Validation IoU')
-plt.plot(epochs, acc3, label='Attention Residual U-Net Training IoU')
-# plt.plot(epochs, val_acc3, label='Attention Residual U-Net Validation IoU')
-plt.title('Combined Training IoU')
-plt.xlabel('Epochs')
-plt.ylabel('IoU')
-plt.legend()
-plt.show()
-
-
-#Combined Validation IoU curves
-# plt.plot(epochs, acc1, label='U-Net Training IoU')
-plt.plot(epochs, val_acc1, label='U-Net Validation IoU')
-# plt.plot(epochs, acc2, label='Attention U-Net Training IoU')
-plt.plot(epochs, val_acc2, label='Attention U-Net Validation IoU')
-# plt.plot(epochs, acc3, label='Attention Residual U-Net Training IoU')
-plt.plot(epochs, val_acc3, label='Attention Residual U-Net Validation IoU')
-plt.title('Combined Validation IoU')
-plt.xlabel('Epochs')
-plt.ylabel('IoU')
-plt.legend()
-plt.show()
-
-
-#Combined Training and validation IoU curves
-plt.plot(epochs, acc1, label='U-Net Training IoU')
-plt.plot(epochs, val_acc1, label='U-Net Validation IoU')
-plt.plot(epochs, acc2, label='Attention U-Net Training IoU')
-plt.plot(epochs, val_acc2, label='Attention U-Net Validation IoU')
-plt.plot(epochs, acc3, label='Attention Residual U-Net Training IoU')
-plt.plot(epochs, val_acc3, label='Attention Residual U-Net Validation IoU')
-plt.title('Combined Training and validation IoU')
-plt.xlabel('Epochs')
-plt.ylabel('IoU')
-plt.legend()
-plt.show()
 
 #######################################################
 #Model 1
@@ -430,7 +333,7 @@ for i in range(len(X_test)):
     plt.subplot(233)
     plt.title('Prediction on test image')
     plt.imshow(predicted_img, cmap='jet')
-    plt.savefig(r'D:/Kassim/new/attention14/unet/%s'%test_name_of_images[i][26:]+'.png',dpi=300)
+    plt.savefig(r'datasets/%s'%test_name_of_images[i][26:]+'.png',dpi=300)
     plt.show()
 
 
@@ -535,7 +438,7 @@ for i in range(len(X_test)):
     plt.subplot(233)
     plt.title('Prediction on test image')
     plt.imshow(predicted_img, cmap='jet')
-    plt.savefig(r'D:/Kassim/new/attention14/attention/%s'%test_name_of_images[i][26:]+'.png',dpi=300)
+    plt.savefig(r'datasets/%s'%test_name_of_images[i][26:]+'.png',dpi=300)
     plt.show()
 
 # IoU and Prediction on Validation Data for model 2
@@ -639,7 +542,7 @@ for i in range(len(X_test)):
     plt.subplot(233)
     plt.title('Prediction on test image')
     plt.imshow(predicted_img, cmap='jet')
-    plt.savefig(r'D:/Kassim/new/attention14/att_res_unet/%s'%test_name_of_images[i][26:]+'.png',dpi=300)
+    plt.savefig(r'datasets/%s'%test_name_of_images[i][26:]+'.png',dpi=300)
     plt.show()
 
 
