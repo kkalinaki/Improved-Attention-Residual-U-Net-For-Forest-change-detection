@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Jan  1 11:21:04 2023
-
-@author: User
-"""
 
 import tensorflow as tf
 from tensorflow.keras import models, layers, regularizers
@@ -107,7 +101,6 @@ def repeat_elem(tensor, rep):
 
      return layers.Lambda(lambda x, repnum: K.repeat_elements(x, repnum, axis=3),
                           arguments={'repnum': rep})(tensor)
-
 
 def res_conv_block(x, filter_size, size, dropout, batch_norm=False):
     '''
