@@ -11,5 +11,10 @@ This file contains the models and loss functions. all the three models have been
 This file contains the codes to run the three models mentioned above in the Model file. 
 
 # How to use the files
-1. For your image datasets, they should be patched with sizes of 128x128, along with the corresponding masks
+1. For the image datasets, they should be patched with sizes of 128x128, along with the corresponding masks
 2. Follow the folder straucture in the AttResUnet_training.py.
+3. The dataset folder contains the patched images and masks
+
+# How run te code
+1. Run the model.py file from your preferred environment (I use spyder from anaconda)
+2. The run the AttResUnet_training.py file which has all the models
